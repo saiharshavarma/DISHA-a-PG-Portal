@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+
+<div class="student-profile py-4">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card shadow-sm">
+            <div class="card-header bg-transparent text-center">
+              <img class="profile_img" src="{{ student.photo.url }}" alt="student dp">
+              <h3 style="margin-bottom: 0% !important;">{{ student.user.first_name }} {{ student.user.last_name }}
+              </h3>
+              <small style="color: grey;">{{ student.user.username }}</small>
+            </div>
+            <div class="card-body">
+              <p class="mb-0"><strong class="pr-1">Student ID:</strong>{{ student.user.id }}</p>
+              <p class="mb-0"><strong class="pr-1">Phone:</strong>{{ student.phone }}</p>
+              <p class="mb-0"><strong class="pr-1">Email:</strong>{{ student.user.email }}</p>
+              <p class="mb-0"></p>
+              <p class="mb-0"></p>
+              <p class="mb-0"></p>
+              <p class="mb-0"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card shadow-sm">
+            <div class="card-header bg-transparent border-0">
+              <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Academic Qualification</h3>
+            </div>
+            <div class="card-body pt-0">
+              <table class="table table-bordered">
+                <tr>
+                  <th width="30%">HighSchool (%)</th>
+                  <td width="2%">:</td>
+                  <td><input type="text" name="highschool" value="{{ student.highschool }}"></td>
+                </tr>
+                <tr>
+                  <th width="30%">UG CGPA</th>
+                  <td width="2%">:</td>
+                  <td><input type="text" name="cgpa" value="{{ student.cgpa }}"></td>
+                </tr>
+                <tr>
+                  <th width="30%">Skills</th>
+                  <td width="2%">:</td>
+                  <td><input type="text" name="skills" value="{{ student.skills }}"></td>
+                </tr>
+                <tr>
+                  <th width="30%">Certifications</th>
+                  <td width="2%">:</td>
+                  <td><input type="text" name="certificates" value="{{ student.certificates }}"></td>
+                </tr>
+                <tr>
+                  <th width="30%">Transcript</th>
+                  <td width="2%">:</td>
+                  {% if student.transcript.url != "" %}
+                  <td><input type="file" name="transcript" value="{{ student.transcript }}">
+                    File:
+                    <a target="_blank" href="{{ student.transcript.url }}">{{ student.transcript }}</a>
+                  </td>
+                  {% else %}
+                  <td><input type="file" name="transcript" value="">
+                  </td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <th width="30%">Resume</th>
+                  <td width="2%">:</td>
+                  {% if student.resume.url != "" %}
+                  <td><input type="file" name="resume" value="{{ student.resume }}">
+                    File:
+                    <a target="_blank" href="{{ student.resume.url }}">{{ student.resume }}</a>
+                  </td>
+                  {% else %}
+                  <td><input type="file" name="resume" value="">
+                  </td>
+                  {% endif %}
+                </tr>
+              </table>
+              <button>Update</button>
+            </div>
+          </div>
+          <div style="height: 26px"></div>
+          <div class="card shadow-sm">
+            <div class="card-header bg-transparent border-0">
+              <h3 class="mb-0"><i class="far fa-clone pr-1"></i>About Me</h3>
+            </div>
+            <div class="card-body pt-0">
+              <p><textarea name="about_me"
+                  style="width: 100%; height: 100%; border-radius:5px;">{{ student.about_me }}</textarea></p>
+              <button>Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock content %}
