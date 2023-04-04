@@ -8,7 +8,7 @@ import datetime
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = PhoneNumberField(blank=True, unique=True, null=True)
-    photo = models.ImageField(upload_to='profile_pics', null=True, blank=True)
+    photo = models.ImageField(upload_to='profile_pics', null=True, blank=True, default="pic.jpg")
     about_me = models.TextField(null=True, default="", blank=True)
     skills = models.TextField(null=True, default="", blank=True)
     certificates = models.TextField(null=True, default="", blank=True)
