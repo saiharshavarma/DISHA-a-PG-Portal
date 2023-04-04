@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from accounts.models import Student, University
 from .models import Application
 import datetime
 
 # Create your views here.
 
+@login_required(login_url='login')
 def profile(request):
     user = request.user
     student = Student.objects.get(user=user)
@@ -21,6 +23,7 @@ def profile(request):
     return render(request, 'student/profile.html', context)
 
 
+@login_required(login_url='login')
 def home(request):
     user = request.user
     student = Student.objects.get(user=user)
@@ -41,6 +44,7 @@ def home(request):
     return render(request, "student/dashboard.html", context)
 
 
+@login_required(login_url='login')
 def application(request, university):
     student = Student.objects.get(user=request.user)
     university = University.objects.get(university_name=university)
